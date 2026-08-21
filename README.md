@@ -1,14 +1,14 @@
 <!--START_SECTION:waka-->
 
 ```abap
-From: 19 July 2026 - To: 18 August 2026
+From: 20 July 2026 - To: 19 August 2026
 
-Total Time: 133 hrs 11 mins
+Total Time: 126 hrs 6 mins
 
-TypeScript        80 hrs 55 mins        ██████████████▓░░░░░░░░░░   58.41 %
-Python            18 hrs 37 mins        ███▒░░░░░░░░░░░░░░░░░░░░░   13.44 %
-Markdown          12 hrs 20 mins        ██▒░░░░░░░░░░░░░░░░░░░░░░   08.91 %
-Other             5 hrs 20 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   03.86 %
+TypeScript        74 hrs 59 mins        ██████████████▒░░░░░░░░░░   57.13 %
+Python            18 hrs 37 mins        ███▓░░░░░░░░░░░░░░░░░░░░░   14.19 %
+Markdown          12 hrs 8 mins         ██▒░░░░░░░░░░░░░░░░░░░░░░   09.26 %
+Other             5 hrs 8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   03.92 %
 ```
 
 <!--END_SECTION:waka-->
