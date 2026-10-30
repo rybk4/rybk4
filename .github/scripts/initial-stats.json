@@ -1,0 +1,12 @@
+{
+  "start": "2026-09-28T00:00:00Z",
+  "end": "2026-10-28T00:00:00Z",
+  "total_seconds_including_other_language": 556620,
+  "languages": [
+    {"name": "TypeScript", "total_seconds": 140520},
+    {"name": "Python", "total_seconds": 136620},
+    {"name": "Markdown", "total_seconds": 123480},
+    {"name": "Other", "total_seconds": 63120},
+    {"name": "JavaScript", "total_seconds": 25140}
+  ]
+}

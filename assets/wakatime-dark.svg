@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="530" viewBox="0 0 720 530" role="img" aria-labelledby="title desc">
+<title id="title">Coding activity · last 30 days</title>
+<desc id="desc">28 Sep — 28 Oct 2026. Total 154h 37m, including Other. TypeScript: 39h 02m; Python: 37h 57m; Markdown: 34h 18m; Other: 17h 32m; JavaScript: 6h 59m; Remaining languages: 18h 49m</desc>
+<rect x="0.5" y="0.5" width="719" height="529" rx="12" fill="#0d1117" stroke="#30363d"/>
+<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" fill="#f0f6fc">
+<text x="28" y="38" font-size="12" font-weight="600" fill="#9da7b3" text-anchor="start">CODING ACTIVITY</text>
+<text x="692" y="38" font-size="11" font-weight="600" fill="#9da7b3" text-anchor="end">LAST 30 DAYS</text>
+<text x="28" y="94" font-size="38" font-weight="600" fill="#f0f6fc" text-anchor="start">154h 37m</text>
+<text x="28" y="120" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="start">28 Sep — 28 Oct 2026</text>
+<text x="692" y="118" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="end">including Other</text>
+<defs><clipPath id="distribution"><rect x="28" y="144" width="664" height="10" rx="5"/></clipPath></defs>
+<rect x="28" y="144" width="664" height="10" rx="5" fill="#212830"/>
+<g clip-path="url(#distribution)">
+<rect x="28.000" y="144" width="167.628" height="10" fill="#3178c6"/>
+<rect x="195.628" y="144" width="162.976" height="10" fill="#d4ad36"/>
+<rect x="358.604" y="144" width="147.301" height="10" fill="#7c8caa"/>
+<rect x="505.905" y="144" width="75.297" height="10" fill="#88939f"/>
+<rect x="581.202" y="144" width="29.990" height="10" fill="#c2a52c"/>
+<rect x="611.192" y="144" width="80.808" height="10" fill="#88939f"/>
+</g>
+<text x="28" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="start">LANGUAGE</text>
+<text x="587" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="end">TIME</text>
+<text x="692" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="end">SHARE</text>
+<circle cx="33" cy="213" r="4" fill="#3178c6"/>
+<text x="46" y="218" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">TypeScript</text>
+<text x="587" y="218" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">39h 02m</text>
+<text x="692" y="218" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">25.2%</text>
+<rect x="46" y="228" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="228" width="163.084" height="3" rx="1.5" fill="#3178c6"/>
+<circle cx="33" cy="262" r="4" fill="#d4ad36"/>
+<text x="46" y="267" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Python</text>
+<text x="587" y="267" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">37h 57m</text>
+<text x="692" y="267" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">24.5%</text>
+<rect x="46" y="277" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="277" width="158.558" height="3" rx="1.5" fill="#d4ad36"/>
+<circle cx="33" cy="311" r="4" fill="#7c8caa"/>
+<text x="46" y="316" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Markdown</text>
+<text x="587" y="316" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">34h 18m</text>
+<text x="692" y="316" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">22.2%</text>
+<rect x="46" y="326" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="326" width="143.308" height="3" rx="1.5" fill="#7c8caa"/>
+<circle cx="33" cy="360" r="4" fill="#88939f"/>
+<text x="46" y="365" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Other</text>
+<text x="587" y="365" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">17h 32m</text>
+<text x="692" y="365" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">11.3%</text>
+<rect x="46" y="375" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="375" width="73.256" height="3" rx="1.5" fill="#88939f"/>
+<circle cx="33" cy="409" r="4" fill="#c2a52c"/>
+<text x="46" y="414" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">JavaScript</text>
+<text x="587" y="414" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">6h 59m</text>
+<text x="692" y="414" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">4.5%</text>
+<rect x="46" y="424" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="424" width="29.177" height="3" rx="1.5" fill="#c2a52c"/>
+<circle cx="33" cy="458" r="4" fill="#88939f"/>
+<text x="46" y="463" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Remaining languages</text>
+<text x="587" y="463" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">18h 49m</text>
+<text x="692" y="463" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">12.2%</text>
+<rect x="46" y="473" width="646" height="3" rx="1.5" fill="#212830"/>
+<rect x="46" y="473" width="78.617" height="3" rx="1.5" fill="#88939f"/>
+<text x="28" y="511" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="start">rybk4 / development</text>
+<text x="692" y="511" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="end">Updated daily</text>
+</g></svg>

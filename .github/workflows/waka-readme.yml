@@ -1,41 +1,41 @@
-name: Waka Readme
+name: WakaTime profile
 
 on:
-    # for manual workflow trigger
-    workflow_dispatch:
-    schedule:
-        # runs at 10 PM Almaty time (16:00 UTC)
-        - cron: '0 16 * * *'
-    push:
-        branches:
-          - main
+  workflow_dispatch:
+  schedule:
+    # 00:00 in Asia/Qyzylorda (UTC+5), on the following local day.
+    - cron: '0 19 * * *'
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wakatime-profile
+  cancel-in-progress: false
 
 jobs:
-    update-readme:
-        name: WakaReadme DevMetrics
-        runs-on: ubuntu-latest
-        steps:
-            # this action name
-            - uses: athul/waka-readme@master # do NOT replace with anything else
-              with:
-                  WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }} # required
-                  ### meta
-                  API_BASE_URL: https://wakatime.com/api # optional
-                  ### content
-                  SHOW_TITLE: true # optional
-                  SECTION_NAME: waka # optional
-                  #   BLOCKS: -> # optional
-                  CODE_LANG: abap # optional
-                  TIME_RANGE: last_30_days # optional
-                  LANG_COUNT: 5 # optional
-                  SHOW_TIME: true # optional
-                  SHOW_TOTAL: true # optional
-                  SHOW_MASKED_TIME: false # optional
-                  SHOW_EDITORS: true        
-                  SHOW_OS: true            
-                  IGNORED_LANGUAGES: YAML JSON TOML # optional
-                  ### commit
-                  COMMIT_MESSAGE: updated coding metrics # optional
-                  TARGET_BRANCH: main # optional
-                  TARGET_PATH: README.md # optional
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check generator
+        run: python -m unittest discover -s .github/scripts -p 'test_*.py'
+      - name: Generate cards
+        env:
+          WAKATIME_TOKEN: ${{ secrets.WAKATIME_TOKEN }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+        run: python .github/scripts/wakatime.py
+      - name: Commit updated cards
+        run: |
+          git add assets/wakatime-light.svg assets/wakatime-dark.svg
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Update WakaTime activity'
+          git push
