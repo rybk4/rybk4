@@ -2,6 +2,7 @@ import copy
 import io
 import json
 from pathlib import Path
+import re
 import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
@@ -35,6 +36,65 @@ class CardsTest(unittest.TestCase):
         ET.fromstring(svg)
         self.assertIn('No activity recorded', svg)
         self.assertNotIn('nan', svg.lower())
+
+    def test_logos_cover_languages_and_wakatime_aliases(self):
+        aliases = {
+            'Dart': 'dart', 'C++': 'cplusplus', 'C#': 'csharp', 'Rust': 'rust',
+            'Go': 'go', 'Kotlin': 'kotlin', 'Swift': 'swift', 'F#': 'fsharp',
+            'Objective-C': 'objectivec', 'Visual Basic .NET': 'visualbasic',
+            'Shell': 'bash', 'PowerShell': 'powershell', 'Assembly': 'nasm',
+            'Vue.js': 'vuejs', 'TSX': 'react', 'GDScript': 'godot',
+            'SCSS': 'sass', 'Nix': 'nixos', 'MATLAB': 'matlab',
+        }
+        for name, slug in aliases.items():
+            with self.subTest(language=name):
+                self.assertIs(wakatime.find_language_icon(name), wakatime.icon_catalog()['icons'][slug])
+        self.assertIs(wakatime.find_language_icon('c++'), wakatime.find_language_icon('C++'))
+        self.assertIsNot(wakatime.find_language_icon('C'), wakatime.find_language_icon('C++'))
+
+    @patch('wakatime.urlopen', side_effect=AssertionError('Rendering must stay offline'))
+    def test_every_vendored_logo_is_valid_and_self_contained(self, open_url):
+        for name, icon in wakatime.icon_catalog()['icons'].items():
+            for theme, color in (('light', '#576579'), ('dark', '#b3c1d5')):
+                with self.subTest(language=name, color=color):
+                    svg = wakatime.language_icon(name, 20, 164, color, theme)
+                    root = ET.fromstring(svg)
+                    self.assertEqual(root.tag, 'svg')
+                    self.assertEqual(root.get('width'), '40')
+                    identifiers = {element.get('id') for element in root.iter() if element.get('id')}
+                    for element in root.iter():
+                        self.assertNotIn(element.tag, ('script', 'foreignObject', 'image', 'style'))
+                        for attr, value in element.attrib.items():
+                            self.assertFalse(attr.startswith('on'))
+                            if attr.endswith('href'):
+                                self.assertTrue(value.startswith('#'))
+                                self.assertIn(value[1:], identifiers)
+                            for reference in re.findall(r'url\(#([^)]+)\)', value):
+                                self.assertIn(reference, identifiers)
+                    if icon['monochrome']:
+                        self.assertIn('currentColor', svg)
+                        self.assertEqual(root.get('color'), color)
+        open_url.assert_not_called()
+
+    def test_two_languages_sharing_a_logo_keep_unique_gradient_ids(self):
+        slug = next(name for name, icon in wakatime.icon_catalog()['icons'].items() if 'id="' in icon['svg'])
+        svg = '<svg>' + wakatime.language_icon(slug, 20, 164, '#576579') + wakatime.language_icon(slug, 386, 164, '#576579') + '</svg>'
+        identifiers = [element.get('id') for element in ET.fromstring(svg).iter() if element.get('id')]
+        self.assertGreater(len(identifiers), 0)
+        self.assertEqual(len(identifiers), len(set(identifiers)))
+
+    def test_dark_details_adapt_without_changing_logo_geometry(self):
+        for name in ('YAML', 'Zsh', 'Shell', 'CoffeeScript'):
+            light = ET.fromstring(wakatime.language_icon(name, 20, 164, '#576579', 'light'))
+            dark = ET.fromstring(wakatime.language_icon(name, 20, 164, '#b3c1d5', 'dark'))
+            self.assertEqual([el.get('d') for el in light.iter('path')], [el.get('d') for el in dark.iter('path')])
+            self.assertNotEqual(ET.tostring(light), ET.tostring(dark))
+
+    def test_unknown_language_gets_a_name_based_mark(self):
+        icon = wakatime.language_icon('New Language', 20, 164, '#576579')
+        ET.fromstring(icon)
+        self.assertIn('>NL</text>', icon)
+        self.assertNotIn('<path', icon)
 
     def test_invalid_durations_are_rejected(self):
         for invalid in (-1, float('nan'), float('inf')):

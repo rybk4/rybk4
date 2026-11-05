@@ -3,11 +3,13 @@
 import argparse
 import base64
 from datetime import datetime
+from functools import lru_cache
 from html import escape
 import json
 import math
 import os
 from pathlib import Path
+import re
 import sys
 import time
 from urllib.error import HTTPError, URLError
@@ -15,14 +17,9 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 ENDPOINT = 'https://api.wakatime.com/api/v1/users/current/stats/last_30_days'
-COLORS = {
-    'TypeScript': '#3178c6', 'Python': '#d4ad36', 'Markdown': '#7c8caa',
-    'JavaScript': '#c2a52c', 'Other': '#88939f', 'Remaining languages': '#88939f',
-    'HTML': '#df6547', 'CSS': '#8874d8', 'Rust': '#bd7658', 'Go': '#36a1b5',
-}
 THEMES = {
-    'light': ('#ffffff', '#d1d9e0', '#1f2328', '#59636e', '#e8edf2'),
-    'dark': ('#0d1117', '#30363d', '#f0f6fc', '#9da7b3', '#212830'),
+    'light': ('#1f2328', '#59636e', '#576579'),
+    'dark': ('#f0f6fc', '#9da7b3', '#b3c1d5'),
 }
 
 
@@ -82,7 +79,7 @@ def language_rows(data):
     )
     languages = [(name, value) for name, value in languages if value > 0]
     total = seconds(data.get('total_seconds_including_other_language', sum(value for _, value in languages)))
-    # The same denominator includes Other in the total, labels and every bar.
+    # The same denominator includes Other in the total and every percentage.
     if sum(value for _, value in languages) > total + 1:
         raise ValueError('Language durations exceed the total; existing cards were kept.')
     rows = languages[:5]
@@ -92,52 +89,94 @@ def language_rows(data):
     return total, rows
 
 
+@lru_cache(maxsize=1)
+def icon_catalog():
+    return json.loads(Path(__file__).with_name('language-icons.json').read_text(encoding='utf-8'))
+
+
+def find_language_icon(name):
+    key = re.sub(r'[\s_.-]+', '', name.casefold())
+    catalog = icon_catalog()
+    return catalog['icons'].get(catalog['aliases'].get(key))
+
+
+def language_icon(name, x, y, color, theme='light'):
+    """Embed local logos directly, including their gradients and theme-aware ink."""
+    icon = find_language_icon(name)
+    if icon:
+        svg = icon['svg']
+        if (icon['dark_adjust'] and theme == 'dark') or (icon['light_adjust'] and theme == 'light'):
+            def adjust_paint(match):
+                value = match[2][1:]
+                if len(value) == 3:
+                    value = ''.join(channel * 2 for channel in value)
+                if len(value) != 6:
+                    return match[0]
+                channels = [int(value[index:index + 2], 16) for index in (0, 2, 4)]
+                if theme == 'dark':
+                    channels = [round(channel * 0.55 + 114) for channel in channels]
+                elif min(channels) > 220:
+                    channels = [89, 99, 110]
+                return match[1] + '#' + ''.join(f'{channel:02x}' for channel in channels) + match[3]
+            svg = re.sub(r'((?:fill|stroke|color|stop-color)=")(#[\da-fA-F]+)(")', adjust_paint, svg)
+        # Two aliases can share a logo; each placement needs its own gradient IDs.
+        for identifier in re.findall(r'\bid="([^"]+)"', svg):
+            unique = f'icon-{x}-{y}-{identifier}'
+            svg = svg.replace(f'id="{identifier}"', f'id="{unique}"')
+            svg = svg.replace(f'url(#{identifier})', f'url(#{unique})')
+            svg = svg.replace(f'href="#{identifier}"', f'href="#{unique}"')
+        return svg.replace('<svg ', f'<svg x="{x}" y="{y}" width="40" height="40" color="{color}" aria-hidden="true" ', 1)
+    if name == 'Other':
+        shapes = ''.join(f'<circle cx="{cx}" cy="12" r="2.3" fill="{color}"/>' for cx in (5, 12, 19))
+    elif name == 'Remaining languages':
+        shapes = ''.join(
+            f'<rect x="{cx}" y="{cy}" width="7" height="7" rx="1.7" fill="{color}"/>'
+            for cx, cy in ((3, 3), (14, 3), (3, 14), (14, 14))
+        )
+    else:
+        # Some languages have no logo. Give each a readable name-based mark.
+        words = re.findall(r'[^\W_]+', name, flags=re.UNICODE)
+        initials = ''.join(word[0] for word in words[:3]) if len(words) > 1 else ''.join(words)[:3]
+        initials = escape(initials.upper() or '?')
+        shapes = (
+            f'<text x="12" y="16" font-family="Consolas,monospace" font-size="10" font-weight="700" '
+            f'text-anchor="middle" fill="{color}">{initials}</text>'
+        )
+    return f'<g transform="translate({x} {y}) scale(1.6667)" aria-hidden="true">{shapes}</g>'
+
+
 def render(data, theme):
     total, rows = language_rows(data)
     dates = period(data)
-    bg, border, text, muted, track = THEMES[theme]
-    height = 236 + max(len(rows), 1) * 49
+    text, muted, icon_muted = THEMES[theme]
+    grid_rows = max(math.ceil(len(rows) / 2), 1)
+    height = 154 + grid_rows * 84
     summary = '; '.join(f'{name}: {duration(value)}' for name, value in rows)
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="720" height="{height}" viewBox="0 0 720 {height}" role="img" aria-labelledby="title desc">',
            '<title id="title">Coding activity · last 30 days</title>',
            f'<desc id="desc">{escape(dates)}. Total {duration(total)}, including Other. {escape(summary) if rows else "No activity recorded."}</desc>',
-           f'<rect x="0.5" y="0.5" width="719" height="{height-1}" rx="12" fill="{bg}" stroke="{border}"/>',
            f'<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" fill="{text}">']
 
     def label(x, y, value, size=14, color=None, weight=400, anchor='start'):
         out.append(f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{color or text}" text-anchor="{anchor}">{escape(str(value))}</text>')
 
-    label(28, 38, 'CODING ACTIVITY', 12, muted, 600)
-    label(692, 38, 'LAST 30 DAYS', 11, muted, 600, 'end')
-    label(28, 94, duration(total), 38, weight=600)
-    label(28, 120, dates, 13, muted)
-    label(692, 118, 'including Other', 11, muted, anchor='end')
-    out.append('<defs><clipPath id="distribution"><rect x="28" y="144" width="664" height="10" rx="5"/></clipPath></defs>')
-    out.append(f'<rect x="28" y="144" width="664" height="10" rx="5" fill="{track}"/>')
-    out.append('<g clip-path="url(#distribution)">')
-    x = 28.0
-    for name, value in rows:
-        width = value / total * 664 if total else 0
-        out.append(f'<rect x="{x:.3f}" y="144" width="{width:.3f}" height="10" fill="{COLORS.get(name, "#56a99c")}"/>')
-        x += width
-    out.append('</g>')
-    label(28, 188, 'LANGUAGE', 10, muted, 600)
-    label(587, 188, 'TIME', 10, muted, 600, 'end')
-    label(692, 188, 'SHARE', 10, muted, 600, 'end')
+    label(20, 31, 'LAST 30 DAYS', 11, muted, 600)
+    label(20, 100, duration(total), 48, weight=600)
+    label(21, 124, 'coding time · including Other', 13, muted)
+    label(700, 97, dates, 13, muted, anchor='end')
+    label(700, 121, 'Updated daily', 11, muted, anchor='end')
     for index, (name, value) in enumerate(rows):
-        y = 218 + index * 49
-        color = COLORS.get(name, '#56a99c')
+        x = 20 + (index % 2) * 366
+        y = 164 + (index // 2) * 84
+        color = icon_muted
         percent = value / total * 100 if total else 0
-        out.append(f'<circle cx="33" cy="{y-5}" r="4" fill="{color}"/>')
-        label(46, y, name if len(name) <= 38 else name[:35] + '…', 14, weight=500)
-        label(587, y, duration(value), 13, muted, anchor='end')
-        label(692, y, f'{percent:.1f}%', 13, anchor='end')
-        out.append(f'<rect x="46" y="{y+10}" width="646" height="3" rx="1.5" fill="{track}"/>')
-        out.append(f'<rect x="46" y="{y+10}" width="{646*percent/100:.3f}" height="3" rx="1.5" fill="{color}"/>')
+        out.append(language_icon(name, x, y, color, theme))
+        display_name = 'More languages' if name == 'Remaining languages' else name
+        label(x + 58, y + 15, display_name if len(display_name) <= 19 else display_name[:17] + '…', 18, weight=600)
+        label(x + 58, y + 39, duration(value), 14, muted)
+        label(x + 314, y + 32, f'{percent:.1f}%', 22, muted, weight=400, anchor='end')
     if not rows:
-        label(28, 226, 'No activity recorded in this period.', 14, muted)
-    label(28, height - 19, 'rybk4 / development', 11, muted)
-    label(692, height - 19, 'Updated daily', 11, muted, anchor='end')
+        label(20, 188, 'No activity recorded in this period.', 16, muted)
     out.append('</g></svg>\n')
     return '\n'.join(out)
 

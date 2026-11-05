@@ -1,62 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="530" viewBox="0 0 720 530" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="406" viewBox="0 0 720 406" role="img" aria-labelledby="title desc">
 <title id="title">Coding activity · last 30 days</title>
-<desc id="desc">29 Sep — 29 Oct 2026. Total 155h 32m, including Other. Python: 41h 29m; TypeScript: 37h 01m; Markdown: 36h 10m; Other: 17h 35m; JavaScript: 7h 06m; Remaining languages: 16h 09m</desc>
-<rect x="0.5" y="0.5" width="719" height="529" rx="12" fill="#0d1117" stroke="#30363d"/>
+<desc id="desc">01 Oct — 31 Oct 2026. Total 158h 40m, including Other. Python: 39h 23m; Markdown: 38h 07m; TypeScript: 36h 43m; Other: 20h 07m; JavaScript: 6h 50m; Remaining languages: 17h 26m</desc>
 <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" fill="#f0f6fc">
-<text x="28" y="38" font-size="12" font-weight="600" fill="#9da7b3" text-anchor="start">CODING ACTIVITY</text>
-<text x="692" y="38" font-size="11" font-weight="600" fill="#9da7b3" text-anchor="end">LAST 30 DAYS</text>
-<text x="28" y="94" font-size="38" font-weight="600" fill="#f0f6fc" text-anchor="start">155h 32m</text>
-<text x="28" y="120" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="start">29 Sep — 29 Oct 2026</text>
-<text x="692" y="118" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="end">including Other</text>
-<defs><clipPath id="distribution"><rect x="28" y="144" width="664" height="10" rx="5"/></clipPath></defs>
-<rect x="28" y="144" width="664" height="10" rx="5" fill="#212830"/>
-<g clip-path="url(#distribution)">
-<rect x="28.000" y="144" width="177.117" height="10" fill="#d4ad36"/>
-<rect x="205.117" y="144" width="158.060" height="10" fill="#3178c6"/>
-<rect x="363.177" y="144" width="154.421" height="10" fill="#7c8caa"/>
-<rect x="517.598" y="144" width="75.075" height="10" fill="#88939f"/>
-<rect x="592.673" y="144" width="30.319" height="10" fill="#c2a52c"/>
-<rect x="622.993" y="144" width="69.007" height="10" fill="#88939f"/>
-</g>
-<text x="28" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="start">LANGUAGE</text>
-<text x="587" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="end">TIME</text>
-<text x="692" y="188" font-size="10" font-weight="600" fill="#9da7b3" text-anchor="end">SHARE</text>
-<circle cx="33" cy="213" r="4" fill="#d4ad36"/>
-<text x="46" y="218" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Python</text>
-<text x="587" y="218" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">41h 29m</text>
-<text x="692" y="218" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">26.7%</text>
-<rect x="46" y="228" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="228" width="172.315" height="3" rx="1.5" fill="#d4ad36"/>
-<circle cx="33" cy="262" r="4" fill="#3178c6"/>
-<text x="46" y="267" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">TypeScript</text>
-<text x="587" y="267" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">37h 01m</text>
-<text x="692" y="267" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">23.8%</text>
-<rect x="46" y="277" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="277" width="153.775" height="3" rx="1.5" fill="#3178c6"/>
-<circle cx="33" cy="311" r="4" fill="#7c8caa"/>
-<text x="46" y="316" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Markdown</text>
-<text x="587" y="316" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">36h 10m</text>
-<text x="692" y="316" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">23.3%</text>
-<rect x="46" y="326" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="326" width="150.235" height="3" rx="1.5" fill="#7c8caa"/>
-<circle cx="33" cy="360" r="4" fill="#88939f"/>
-<text x="46" y="365" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Other</text>
-<text x="587" y="365" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">17h 35m</text>
-<text x="692" y="365" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">11.3%</text>
-<rect x="46" y="375" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="375" width="73.040" height="3" rx="1.5" fill="#88939f"/>
-<circle cx="33" cy="409" r="4" fill="#c2a52c"/>
-<text x="46" y="414" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">JavaScript</text>
-<text x="587" y="414" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">7h 06m</text>
-<text x="692" y="414" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">4.6%</text>
-<rect x="46" y="424" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="424" width="29.497" height="3" rx="1.5" fill="#c2a52c"/>
-<circle cx="33" cy="458" r="4" fill="#88939f"/>
-<text x="46" y="463" font-size="14" font-weight="500" fill="#f0f6fc" text-anchor="start">Remaining languages</text>
-<text x="587" y="463" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">16h 09m</text>
-<text x="692" y="463" font-size="13" font-weight="400" fill="#f0f6fc" text-anchor="end">10.4%</text>
-<rect x="46" y="473" width="646" height="3" rx="1.5" fill="#212830"/>
-<rect x="46" y="473" width="67.137" height="3" rx="1.5" fill="#88939f"/>
-<text x="28" y="511" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="start">rybk4 / development</text>
-<text x="692" y="511" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="end">Updated daily</text>
+<text x="20" y="31" font-size="11" font-weight="600" fill="#9da7b3" text-anchor="start">LAST 30 DAYS</text>
+<text x="20" y="100" font-size="48" font-weight="600" fill="#f0f6fc" text-anchor="start">158h 40m</text>
+<text x="21" y="124" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="start">coding time · including Other</text>
+<text x="700" y="97" font-size="13" font-weight="400" fill="#9da7b3" text-anchor="end">01 Oct — 31 Oct 2026</text>
+<text x="700" y="121" font-size="11" font-weight="400" fill="#9da7b3" text-anchor="end">Updated daily</text>
+<svg x="20" y="164" width="40" height="40" color="#b3c1d5" aria-hidden="true" viewBox="0 0 128 128" fill="currentColor"><linearGradient id="icon-20-164-python-original-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#5A9FD4" /><stop offset="1" stop-color="#306998" /></linearGradient><linearGradient id="icon-20-164-python-original-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#FFD43B" /><stop offset="1" stop-color="#FFE873" /></linearGradient><path fill="url(#icon-20-164-python-original-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)" /><path fill="url(#icon-20-164-python-original-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)" /><radialGradient id="icon-20-164-python-original-c" cx="1825.678" cy="444.45" r="26.743" gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B8B8B8" stop-opacity=".498" /><stop offset="1" stop-color="#7F7F7F" stop-opacity="0" /></radialGradient><path opacity=".444" fill="url(#icon-20-164-python-original-c)" d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z" /></svg>
+<text x="78" y="179" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">Python</text>
+<text x="78" y="203" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">39h 23m</text>
+<text x="334" y="196" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">24.8%</text>
+<svg x="386" y="164" width="40" height="40" color="#b3c1d5" aria-hidden="true" viewBox="0 0 128 128" fill="currentColor"><path d="M11.95 24.348c-5.836 0-10.618 4.867-10.618 10.681v57.942c0 5.814 4.782 10.681 10.617 10.681h104.102c5.835 0 10.617-4.867 10.617-10.681V35.03c0-5.814-4.783-10.681-10.617-10.681H14.898l-.002-.002H11.95zm-.007 9.543h104.108c.625 0 1.076.423 1.076 1.14v57.94c0 .717-.453 1.14-1.076 1.14H11.949c-.623 0-1.076-.423-1.076-1.14V35.029c0-.715.451-1.135 1.07-1.138z" font-weight="400" font-family="sans-serif" overflow="visible" line-height="normal" font-variant-ligatures="normal" font-variant-position="normal" font-variant-caps="normal" font-variant-numeric="normal" font-variant-alternates="normal" font-variant-east-asian="normal" font-feature-settings="normal" font-variation-settings="normal" text-indent="0" text-align="start" text-decoration-line="none" text-decoration-style="solid" text-decoration-color="#000" text-transform="none" text-orientation="mixed" white-space="normal" shape-padding="0" shape-margin="0" inline-size="0" isolation="auto" mix-blend-mode="normal" solid-color="#000" solid-opacity="1" /><path d="M20.721 84.1V43.9H32.42l11.697 14.78L55.81 43.9h11.696v40.2H55.81V61.044l-11.694 14.78-11.698-14.78V84.1H20.722zm73.104 0L76.28 64.591h11.697V43.9h11.698v20.69h11.698zm0 0" /></svg>
+<text x="444" y="179" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">Markdown</text>
+<text x="444" y="203" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">38h 07m</text>
+<text x="700" y="196" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">24.0%</text>
+<svg x="20" y="248" width="40" height="40" color="#b3c1d5" aria-hidden="true" viewBox="0 0 128 128" fill="currentColor"><path fill="#fff" d="M22.67 47h99.67v73.67H22.67z" /><path data-name="original" fill="#007acc" d="M1.5 63.91v62.5h125v-125H1.5zm100.73-5a15.56 15.56 0 017.82 4.5 20.58 20.58 0 013 4c0 .16-5.4 3.81-8.69 5.85-.12.08-.6-.44-1.13-1.23a7.09 7.09 0 00-5.87-3.53c-3.79-.26-6.23 1.73-6.21 5a4.58 4.58 0 00.54 2.34c.83 1.73 2.38 2.76 7.24 4.86 8.95 3.85 12.78 6.39 15.16 10 2.66 4 3.25 10.46 1.45 15.24-2 5.2-6.9 8.73-13.83 9.9a38.32 38.32 0 01-9.52-.1 23 23 0 01-12.72-6.63c-1.15-1.27-3.39-4.58-3.25-4.82a9.34 9.34 0 011.15-.73L82 101l3.59-2.08.75 1.11a16.78 16.78 0 004.74 4.54c4 2.1 9.46 1.81 12.16-.62a5.43 5.43 0 00.69-6.92c-1-1.39-3-2.56-8.59-5-6.45-2.78-9.23-4.5-11.77-7.24a16.48 16.48 0 01-3.43-6.25 25 25 0 01-.22-8c1.33-6.23 6-10.58 12.82-11.87a31.66 31.66 0 019.49.26zm-29.34 5.24v5.12H56.66v46.23H45.15V69.26H28.88v-5a49.19 49.19 0 01.12-5.17C29.08 59 39 59 51 59h21.83z" /></svg>
+<text x="78" y="263" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">TypeScript</text>
+<text x="78" y="287" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">36h 43m</text>
+<text x="334" y="280" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">23.1%</text>
+<g transform="translate(386 248) scale(1.6667)" aria-hidden="true"><circle cx="5" cy="12" r="2.3" fill="#b3c1d5"/><circle cx="12" cy="12" r="2.3" fill="#b3c1d5"/><circle cx="19" cy="12" r="2.3" fill="#b3c1d5"/></g>
+<text x="444" y="263" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">Other</text>
+<text x="444" y="287" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">20h 07m</text>
+<text x="700" y="280" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">12.7%</text>
+<svg x="20" y="332" width="40" height="40" color="#b3c1d5" aria-hidden="true" viewBox="0 0 128 128" fill="currentColor"><path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z" /><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z" /></svg>
+<text x="78" y="347" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">JavaScript</text>
+<text x="78" y="371" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">6h 50m</text>
+<text x="334" y="364" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">4.3%</text>
+<g transform="translate(386 332) scale(1.6667)" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.7" fill="#b3c1d5"/><rect x="14" y="3" width="7" height="7" rx="1.7" fill="#b3c1d5"/><rect x="3" y="14" width="7" height="7" rx="1.7" fill="#b3c1d5"/><rect x="14" y="14" width="7" height="7" rx="1.7" fill="#b3c1d5"/></g>
+<text x="444" y="347" font-size="18" font-weight="600" fill="#f0f6fc" text-anchor="start">More languages</text>
+<text x="444" y="371" font-size="14" font-weight="400" fill="#9da7b3" text-anchor="start">17h 26m</text>
+<text x="700" y="364" font-size="22" font-weight="400" fill="#9da7b3" text-anchor="end">11.0%</text>
 </g></svg>
