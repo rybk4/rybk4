@@ -4,7 +4,9 @@ The README embeds local SVGs for GitHub's light and dark themes. The workflow up
 
 ## Authentication
 
-The existing `WAKATIME_API_KEY` Actions secret remains supported. Current WakaTime documentation recommends a personal OAuth token for reading statistics: follow the personal-token link in the [authentication docs](https://wakatime.com/developers/#authentication) and store it as `WAKATIME_TOKEN`, with the `read_stats` scope. The token takes priority over the older secret. Do not put credentials in the README or assets.
+Reading statistics requires a personal OAuth token with the `read_stats` scope. Plugin API keys are write-only and cannot read statistics. Follow the personal-token link in the [authentication docs](https://wakatime.com/developers/#authentication), then add a repository Actions secret named `WAKATIME_TOKEN` in [Settings → Secrets and variables → Actions](https://github.com/rybk4/rybk4/settings/secrets/actions). The token takes priority over the older `WAKATIME_API_KEY` secret; the older name also accepts OAuth tokens for compatibility. Do not put credentials in the README or assets.
+
+If daily runs fail with HTTP 401 or 403 in **Generate cards**, replace the token and verify its `read_stats` scope. The schedule cannot repair an authentication failure. After saving the secret, run **Actions → WakaTime profile → Run workflow** to verify both generation and the bot commit.
 
 API reference: <https://wakatime.com/developers/#stats>.
 Endpoint: `GET https://api.wakatime.com/api/v1/users/current/stats/last_30_days`.

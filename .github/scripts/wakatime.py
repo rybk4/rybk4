@@ -44,6 +44,13 @@ def fetch_stats():
                 if response.status == 200 and isinstance(data, dict) and data.get('is_up_to_date', True):
                     return data
         except HTTPError as error:
+            if error.code in (401, 403):
+                raise ValueError(
+                    f'WakaTime returned HTTP {error.code}. Set the WAKATIME_TOKEN Actions secret '
+                    'to a personal OAuth token with read_stats scope '
+                    '(https://wakatime.com/developers/#authentication). '
+                    'Plugin API keys cannot read statistics.'
+                ) from None
             if error.code not in (429, 500, 502, 503, 504):
                 raise ValueError(f'WakaTime returned HTTP {error.code}. Check the token and read_stats scope.') from None
         except (URLError, TimeoutError):
@@ -160,7 +167,6 @@ def render(data, theme):
     def label(x, y, value, size=14, color=None, weight=400, anchor='start'):
         out.append(f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{color or text}" text-anchor="{anchor}">{escape(str(value))}</text>')
 
-    label(20, 31, 'LAST 30 DAYS', 11, muted, 600)
     label(20, 100, duration(total), 48, weight=600)
     label(21, 124, 'coding time · including Other', 13, muted)
     label(700, 97, dates, 13, muted, anchor='end')

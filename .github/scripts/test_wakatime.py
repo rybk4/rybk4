@@ -128,11 +128,17 @@ class CardsTest(unittest.TestCase):
     @patch('wakatime.time.sleep')
     @patch('wakatime.urlopen')
     def test_auth_failure_is_not_retried_or_leaked(self, open_url, sleep):
-        open_url.side_effect = HTTPError(wakatime.ENDPOINT, 401, 'secret response', {}, None)
-        with self.assertRaisesRegex(ValueError, 'HTTP 401') as raised:
-            wakatime.fetch_stats()
-        self.assertNotIn('legacy-key', str(raised.exception))
-        self.assertTrue(open_url.call_args.args[0].get_header('Authorization').startswith('Basic '))
+        for status in (401, 403):
+            with self.subTest(status=status):
+                open_url.side_effect = HTTPError(wakatime.ENDPOINT, status, 'secret response', {}, None)
+                with self.assertRaisesRegex(ValueError, f'HTTP {status}') as raised:
+                    wakatime.fetch_stats()
+                message = str(raised.exception)
+                self.assertIn('WAKATIME_TOKEN', message)
+                self.assertIn('read_stats', message)
+                self.assertNotIn('legacy-key', message)
+                self.assertNotIn('secret response', message)
+                self.assertTrue(open_url.call_args.args[0].get_header('Authorization').startswith('Basic '))
         sleep.assert_not_called()
 
 
