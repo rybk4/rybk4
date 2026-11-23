@@ -1,8 +1,6 @@
-import copy
 import io
 import json
 from pathlib import Path
-import re
 import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
@@ -15,98 +13,53 @@ class CardsTest(unittest.TestCase):
     def setUp(self):
         self.data = json.loads(Path(__file__).with_name('initial-stats.json').read_text(encoding='utf-8'))
 
-    def test_consistent_total_includes_other_and_remaining(self):
-        total, rows = wakatime.language_rows(self.data)
-        self.assertEqual(wakatime.duration(total), '154h 37m')
-        self.assertAlmostEqual(sum(value for _, value in rows), total)
-        self.assertEqual(rows[-1], ('Remaining languages', 67740))
-
-    def test_themes_are_valid_svg_and_escape_api_text(self):
-        self.data['languages'][0]['name'] = '<script>&"'
+    def test_both_themes_render_the_same_aggregate_stats(self):
+        self.data.update(
+            days_including_holidays=30,
+            days_minus_holidays=23,
+            projects=[{'name': 'Private project'}],
+        )
+        self.data['languages'][0]['name'] = '<private-language>'
         for theme in wakatime.THEMES:
-            svg = wakatime.render(self.data, theme)
-            root = ET.fromstring(svg)
-            self.assertEqual(root.tag, '{http://www.w3.org/2000/svg}svg')
-            self.assertNotIn('<script>', svg)
-            self.assertIn('&lt;script&gt;', svg)
+            with self.subTest(theme=theme):
+                svg = wakatime.render(self.data, theme)
+                root = ET.fromstring(svg)
+                self.assertEqual(root.tag, '{http://www.w3.org/2000/svg}svg')
+                self.assertEqual(root.get('viewBox'), '0 0 680 212')
+                self.assertIn('Total time 154h 37m. Average 5h 09m per calendar day.', svg)
+                self.assertIn('Active on 23 of 30 days.', svg)
+                self.assertIn('>23<tspan', svg)
+                self.assertNotIn('private-language', svg)
+                self.assertNotIn('Private project', svg)
+                self.assertNotIn('Markdown', svg)
+        self.assertNotEqual(wakatime.render(self.data, 'light'), wakatime.render(self.data, 'dark'))
 
-    def test_zero_activity(self):
-        self.data.update(languages=[], total_seconds_including_other_language=0)
+    def test_legacy_snapshot_displays_unknown_active_days(self):
+        svg = wakatime.render(self.data, 'light')
+        self.assertIn('Active day count unavailable.', svg)
+        self.assertIn('>—<tspan', svg)
+        self.assertIn(' / 30</tspan>', svg)
+
+    def test_zero_activity_does_not_require_language_data(self):
+        self.data.pop('languages')
+        self.data.update(total_seconds_including_other_language=0, days_minus_holidays=0)
         svg = wakatime.render(self.data, 'dark')
-        ET.fromstring(svg)
-        self.assertIn('No activity recorded', svg)
-        self.assertNotIn('nan', svg.lower())
+        self.assertIn('Total time 0h 00m. Average 0h 00m per calendar day.', svg)
+        self.assertIn('Active on 0 of 30 days.', svg)
 
-    def test_logos_cover_languages_and_wakatime_aliases(self):
-        aliases = {
-            'Dart': 'dart', 'C++': 'cplusplus', 'C#': 'csharp', 'Rust': 'rust',
-            'Go': 'go', 'Kotlin': 'kotlin', 'Swift': 'swift', 'F#': 'fsharp',
-            'Objective-C': 'objectivec', 'Visual Basic .NET': 'visualbasic',
-            'Shell': 'bash', 'PowerShell': 'powershell', 'Assembly': 'nasm',
-            'Vue.js': 'vuejs', 'TSX': 'react', 'GDScript': 'godot',
-            'SCSS': 'sass', 'Nix': 'nixos', 'MATLAB': 'matlab',
-        }
-        for name, slug in aliases.items():
-            with self.subTest(language=name):
-                self.assertIs(wakatime.find_language_icon(name), wakatime.icon_catalog()['icons'][slug])
-        self.assertIs(wakatime.find_language_icon('c++'), wakatime.find_language_icon('C++'))
-        self.assertIsNot(wakatime.find_language_icon('C'), wakatime.find_language_icon('C++'))
+    def test_both_years_are_displayed_when_period_crosses_new_year(self):
+        self.data.update(start='2025-12-10T00:00:00Z', end='2026-01-09T00:00:00Z')
+        self.assertEqual(wakatime.period(self.data), '10 Dec 2025 – 9 Jan 2026')
 
-    @patch('wakatime.urlopen', side_effect=AssertionError('Rendering must stay offline'))
-    def test_every_vendored_logo_is_valid_and_self_contained(self, open_url):
-        for name, icon in wakatime.icon_catalog()['icons'].items():
-            for theme, color in (('light', '#576579'), ('dark', '#b3c1d5')):
-                with self.subTest(language=name, color=color):
-                    svg = wakatime.language_icon(name, 20, 164, color, theme)
-                    root = ET.fromstring(svg)
-                    self.assertEqual(root.tag, 'svg')
-                    self.assertEqual(root.get('width'), '40')
-                    identifiers = {element.get('id') for element in root.iter() if element.get('id')}
-                    for element in root.iter():
-                        self.assertNotIn(element.tag, ('script', 'foreignObject', 'image', 'style'))
-                        for attr, value in element.attrib.items():
-                            self.assertFalse(attr.startswith('on'))
-                            if attr.endswith('href'):
-                                self.assertTrue(value.startswith('#'))
-                                self.assertIn(value[1:], identifiers)
-                            for reference in re.findall(r'url\(#([^)]+)\)', value):
-                                self.assertIn(reference, identifiers)
-                    if icon['monochrome']:
-                        self.assertIn('currentColor', svg)
-                        self.assertEqual(root.get('color'), color)
-        open_url.assert_not_called()
-
-    def test_two_languages_sharing_a_logo_keep_unique_gradient_ids(self):
-        slug = next(name for name, icon in wakatime.icon_catalog()['icons'].items() if 'id="' in icon['svg'])
-        svg = '<svg>' + wakatime.language_icon(slug, 20, 164, '#576579') + wakatime.language_icon(slug, 386, 164, '#576579') + '</svg>'
-        identifiers = [element.get('id') for element in ET.fromstring(svg).iter() if element.get('id')]
-        self.assertGreater(len(identifiers), 0)
-        self.assertEqual(len(identifiers), len(set(identifiers)))
-
-    def test_dark_details_adapt_without_changing_logo_geometry(self):
-        for name in ('YAML', 'Zsh', 'Shell', 'CoffeeScript'):
-            light = ET.fromstring(wakatime.language_icon(name, 20, 164, '#576579', 'light'))
-            dark = ET.fromstring(wakatime.language_icon(name, 20, 164, '#b3c1d5', 'dark'))
-            self.assertEqual([el.get('d') for el in light.iter('path')], [el.get('d') for el in dark.iter('path')])
-            self.assertNotEqual(ET.tostring(light), ET.tostring(dark))
-
-    def test_unknown_language_gets_a_name_based_mark(self):
-        icon = wakatime.language_icon('New Language', 20, 164, '#576579')
-        ET.fromstring(icon)
-        self.assertIn('>NL</text>', icon)
-        self.assertNotIn('<path', icon)
-
-    def test_invalid_durations_are_rejected(self):
-        for invalid in (-1, float('nan'), float('inf')):
-            data = copy.deepcopy(self.data)
-            data['languages'][0]['total_seconds'] = invalid
-            with self.assertRaises(ValueError):
-                wakatime.render(data, 'light')
-
-    def test_inconsistent_total_is_rejected(self):
-        self.data['total_seconds_including_other_language'] = 1
-        with self.assertRaises(ValueError):
-            wakatime.render(self.data, 'dark')
+    def test_invalid_aggregate_stats_are_rejected(self):
+        for invalid_fields in (
+            {'total_seconds_including_other_language': -1},
+            {'total_seconds_including_other_language': float('nan')},
+            {'days_including_holidays': 0},
+            {'days_minus_holidays': 31},
+        ):
+            with self.subTest(invalid_fields=invalid_fields), self.assertRaises(ValueError):
+                wakatime.render({**self.data, **invalid_fields}, 'light')
 
     @patch.dict('os.environ', {'WAKATIME_TOKEN': 'test-token', 'WAKATIME_API_KEY': ''}, clear=True)
     @patch('wakatime.time.sleep')

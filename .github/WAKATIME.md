@@ -11,7 +11,7 @@ If daily runs fail with HTTP 401 or 403 in **Generate cards**, replace the token
 API reference: <https://wakatime.com/developers/#stats>.
 Endpoint: `GET https://api.wakatime.com/api/v1/users/current/stats/last_30_days`.
 
-Only language durations and the period appear in the generated images. Project names, file paths and raw API responses are never saved. If the API fails or is still calculating stats after retries, the workflow fails and retains the last cards.
+The generated cards show the period, total time, average time per calendar day, and the number of days with recorded activity. Total time includes all tracked activity. The average divides that time by the number of calendar days and rounds to the nearest minute. If the API fails or is still calculating stats after retries, the workflow retains the previous cards.
 
 ## Local preview
 
@@ -22,6 +22,6 @@ python .github/scripts/wakatime.py --input .github/scripts/initial-stats.json
 python -m unittest discover -s .github/scripts -p 'test_*.py'
 ```
 
-`initial-stats.json` is a one-time migration of the original README (28 Sep–28 Oct 2026), not live data. Its old total excluded “Other”, although the language percentages included it. The new total includes “Other” consistently: 137h 05m + 17h 32m = 154h 37m. Time not represented by the five original rows is grouped under “Remaining languages”. Future workflow runs replace the images with actual API statistics, show the five largest languages and group the rest. No languages are silently filtered out.
+`initial-stats.json` is a snapshot from 28 Sep–28 Oct 2026. The snapshot contains total time but no active day count, so the preview shows a dash for that metric. Workflow runs populate it from current API statistics.
 
 The workflow needs repository contents write permission. If branch protection blocks direct bot pushes, allow the workflow through the repository's normal rules or adapt the commit step to your PR process.
