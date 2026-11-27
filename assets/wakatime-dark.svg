@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="680" height="212" viewBox="0 0 680 212" role="img" aria-labelledby="title description">
   <title id="title">WakaTime coding activity</title>
-  <desc id="description">25 Oct – 24 Nov 2026. Total time 155h 30m. Average 5h 11m per calendar day. Active on 24 of 30 days.</desc>
+  <desc id="description">26 Oct – 25 Nov 2026. Total time 163h 07m. Average 5h 26m per calendar day. Active on 25 of 30 days.</desc>
   <style>
     .surface { fill: #141a29; stroke: #2c374e; }
     .rule { stroke: #2c374e; }
@@ -20,15 +20,15 @@
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">
     <text class="ink" x="55" y="40" font-size="19" font-weight="600">Coding activity</text>
-    <text class="muted" x="652" y="40" font-size="16" text-anchor="end">25 Oct – 24 Nov 2026</text>
+    <text class="muted" x="652" y="40" font-size="16" text-anchor="end">26 Oct – 25 Nov 2026</text>
     <text class="muted" x="28" y="105" font-size="17" font-weight="500">Total time · Last 30 days</text>
     <text class="muted" x="397" y="114" font-size="17" font-weight="500">Daily average</text>
     <text class="muted" x="397" y="164" font-size="17" font-weight="500">Active days</text>
   </g>
 
   <g font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace">
-    <text class="ink" x="24" y="171" font-size="61" font-weight="700" letter-spacing="-2">155<tspan class="accent" font-size="32" dx="2" dy="-1">h</tspan><tspan dx="12" dy="1">30</tspan><tspan class="accent" font-size="32" dx="2" dy="-1">m</tspan></text>
-    <text class="ink" x="652" y="115" font-size="24" font-weight="700" text-anchor="end">5h 11m</text>
-    <text class="ink" x="652" y="165" font-size="24" font-weight="700" text-anchor="end">24<tspan class="muted" font-size="17" font-weight="400"> / 30</tspan></text>
+    <text class="ink" x="24" y="171" font-size="61" font-weight="700" letter-spacing="-2">163<tspan class="accent" font-size="32" dx="2" dy="-1">h</tspan><tspan dx="12" dy="1">07</tspan><tspan class="accent" font-size="32" dx="2" dy="-1">m</tspan></text>
+    <text class="ink" x="652" y="115" font-size="24" font-weight="700" text-anchor="end">5h 26m</text>
+    <text class="ink" x="652" y="165" font-size="24" font-weight="700" text-anchor="end">25<tspan class="muted" font-size="17" font-weight="400"> / 30</tspan></text>
   </g>
 </svg>
